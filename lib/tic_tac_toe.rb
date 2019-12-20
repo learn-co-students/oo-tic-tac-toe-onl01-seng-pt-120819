@@ -1,3 +1,5 @@
+require 'pry'
+
 class TicTacToe
   
   def initialize(board = nil)
@@ -37,7 +39,7 @@ class TicTacToe
   end
   
   def valid_move?(position)
-    !position_taken?(position) && @board[position] ? true : false 
+    !position_taken?(position) && position.between?(0,8) ? true : false 
   end
   
   # def turn 
@@ -60,9 +62,44 @@ class TicTacToe
     puts "Please enter a number from 1 to 9"
     input = gets.chomp 
     input = input_to_index(input)
-    
     valid_move?(input) ? move(input, current_player) && display_board : turn 
   end
+  
+  def won?
+     WIN_COMBINATIONS.each do |win_combination|
+      if ((@board[win_combination[0]] == "X" &&     @board[win_combination[1]] == "X" && @board[win_combination[2]] == "X") ||
+         (@board[win_combination[0]] == "O" && @board[win_combination[1]] == "O" && @board[win_combination[2]] == "O") ) 
+        return win_combination
+      end
+    end  
+    nil 
+  end
+  
+  def full?
+    !@board.any?{|element| element == " "}
+  end
+  
+  def draw?
+    full? && !won?
+  end
+  
+  def over?
+    draw? || full? || won?
+  end
+  
+  def winner
+    won?.kind_of?(Array) ? @board[won?[0]] : nil
+  end
+  
+  def play 
+    turn until over? 
+    if won?
+      puts "Congratulations #{winner}!" 
+    else 
+      puts "Cat's Game!"
+    end
+  end
+  
   
 end
 
