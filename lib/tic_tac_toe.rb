@@ -52,6 +52,7 @@ class TicTacToe
       turn
     end
   end
+
     
   def turn_count
     @board.count{|token| token == "X" || token == "O"}
@@ -67,7 +68,7 @@ class TicTacToe
       first_cell = @board[combo[0]]
       second_cell = @board[combo[1]]
       third_cell = @board[combo[2]]
-      
+
       consideration = [first_cell, second_cell, third_cell]
       if consideration.uniq.size == 1
         return combo
@@ -90,8 +91,13 @@ class TicTacToe
     if !won? && !full?
       return false
     end
+      # consideration = [first_cell, second_cell, third_cell]
+      # if consideration.uniq.size == 1
+      #   return combo
+      # end
+    # end
+    
   end
-  
   
   def over?
     if won? || full?
@@ -102,9 +108,6 @@ class TicTacToe
   def winner
     if won?
       return @board[won?[0]]
-    end
-    if !won?
-      return nil
     end
   end
   
