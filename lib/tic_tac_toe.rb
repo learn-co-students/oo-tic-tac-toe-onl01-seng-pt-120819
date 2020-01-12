@@ -91,12 +91,6 @@ class TicTacToe
     if !won? && !full?
       return false
     end
-      # consideration = [first_cell, second_cell, third_cell]
-      # if consideration.uniq.size == 1
-      #   return combo
-      # end
-    # end
-    
   end
   
   def over?
