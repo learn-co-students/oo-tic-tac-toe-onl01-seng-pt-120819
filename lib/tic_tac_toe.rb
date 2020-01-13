@@ -72,11 +72,11 @@ class TicTacToe
   end
 
   def draw?
-    full? && !won?
+    self.full? && !won?
   end
 
   def over?
-    won? || draw?
+    self.won? || draw?
   end
 
   def winner
