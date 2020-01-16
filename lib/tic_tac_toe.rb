@@ -40,13 +40,42 @@ class TicTacToe
    end
    end
    
- def valid_move?(index)
+  def valid_move?(index)
    if !position_taken?(index) && (0..8).include?(index) 
      true
    else 
      false
- end
- end
+   end
+  end
    
- 
+ def turn_count
+    @board.count{|square| square != " " }
+  end
+
+  def current_player
+    turn_count.even? ? "X" : "O"
+  end
+  
+  def turn
+    puts "Please enter a number (1-9):"
+    input = gets
+    index = input_to_index(input)
+    if valid_move?(index)
+      token = current_player
+      move(index, token)
+    else
+      turn
+    end
+    display_board
+  end
+  
+  def won?
+    WIN_COMBINATIONS.each do |combo|
+      if @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+        return combo
+      end
+    end
+    false
+  end
+  
 end
