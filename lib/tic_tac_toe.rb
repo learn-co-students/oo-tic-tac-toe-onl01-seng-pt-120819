@@ -78,4 +78,43 @@ class TicTacToe
     false
   end
   
+  def full?
+    if !@board.any?(" ")
+      true
+    else 
+      false
+    end
+  end
+  
+  def draw?
+    if won?
+      false
+    elsif !won? && full?
+      true
+    else !won? && !full?
+    end
+  end
+
+ def over?
+   if won? || full?
+     true
+   end
+ end
+ 
+ def winner
+   if won?
+   WIN_COMBINATIONS.each do |combo|
+      if @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+        
+        return @board[combo[0]]
+      end
+    end
+   else 
+     return nil
+  end
+end
+    
+     
+     
+
 end
