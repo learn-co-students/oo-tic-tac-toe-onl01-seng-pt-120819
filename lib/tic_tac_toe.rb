@@ -71,7 +71,7 @@ class TicTacToe
   
   def won?
     WIN_COMBINATIONS.each do |combo|
-      if @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
+      if (@board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]) && @board[combo[0]] != " "
         return combo
       end
     end
@@ -87,18 +87,11 @@ class TicTacToe
   end
   
   def draw?
-    if won?
-      false
-    elsif !won? && full?
-      true
-    else !won? && !full?
-    end
+    !won? && full?
   end
 
  def over?
-   if won? || full?
-     true
-   end
+   won? || draw? 
  end
  
  def winner
@@ -113,15 +106,13 @@ def play
   until over?
     turn_count
     turn
-    if draw?
-      puts "Cat's Game!"
-    end
   end
     
   if won?
   puts "Congratulations #{winner}!"
+  elsif draw?
+  puts "Cat's Game!"
  end
- 
  end
      
 
