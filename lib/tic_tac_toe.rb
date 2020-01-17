@@ -102,19 +102,27 @@ class TicTacToe
  end
  
  def winner
-   if won?
-   WIN_COMBINATIONS.each do |combo|
-      if @board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]]
-        
-        return @board[combo[0]]
-      end
+   if combo = won?
+     @board[combo[0]]
+   else
+     nil
+   end
+ end
+
+def play 
+  until over?
+    turn_count
+    turn
+    if draw?
+      puts "Cat's Game!"
     end
-   else 
-     return nil
   end
-end
     
-     
+  if won?
+  puts "Congratulations #{winner}!"
+ end
+ 
+ end
      
 
 end
