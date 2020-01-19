@@ -32,7 +32,9 @@ def input_to_index(a)
       a.to_i - 1
 end
 
-po
+def move (i, move = "X")
+  @board[i] = move
+end
 # binding.pry
 def position_taken?(i)
   @board[i] == " " ? false : true
@@ -54,7 +56,7 @@ def current_player
 end
 
 def turn
-  puts "Player #{current_player}, please enter a number 1-9:"
+   puts "Please enter a number 1-9:"
     input = gets.strip
       i = input_to_index(input)
       cp = current_player
@@ -64,7 +66,7 @@ def turn
       else
         turn
       end
-#  binding.pry
+  # binding.pry
 end
 
 end
