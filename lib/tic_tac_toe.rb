@@ -37,12 +37,14 @@ class TicTacToe
   end
 
   def valid_move?(index)
-    return nil if index < 0 || index > 8
-    !position_taken?(index)
+    # return nil if index < 0 || index > 8
+    # !position_taken?(index)
+
+    index.between?(0,8) && !position_taken?(index)
   end
 
   def turn
-    puts "Congratulations X!"
+    puts "Please enter 1-9"
     input = gets.chomp
     index  = input_to_index(input)
     if valid_move?(index)
@@ -65,17 +67,14 @@ class TicTacToe
 
   def won?
 
-    WIN_COMBINATIONS.each do |combo|
+    WIN_COMBINATIONS.detect do |combo|
       first_cell = @board[combo[0]]
       second_cell = @board[combo[1]]
       third_cell = @board[combo[2]]
 
-      chance = [first_cell, second_cell, third_cell]
-      if chance.uniq.size == 1 && first_cell != " "
-        return combo
-      end
+      first_cell == "X" && second_cell == "X" && third_cell == "X" ||
+      first_cell == "O" && second_cell == "O" && third_cell == "O"
     end
-    false
   end
 
   def full?
@@ -83,28 +82,19 @@ class TicTacToe
   end
 
   def draw?
-    if full? && !won?
-      return true
-    end
-    if won?
-      return false
-    end
-    if !won? && !full?
-      return false
-    end
+    !won? && full?
   end
 
   def over?
-    if won? || full? || draw?
-      return true
-    end
+
+    draw? || won?
   end
 
   def winner
-    winning_array = won?
-    if winning_array
-      win_index = winning_array[0]
-      @board[win_index]
+    if won?
+      @board[won?[0]] == "X" ? "X" : "O"
+    else
+      nil
     end
   end
 
@@ -114,9 +104,9 @@ class TicTacToe
       turn
     end
     if won?
-      "Congratulations #{winner}!"
+    puts "Congratulations #{winner}!"
     elsif draw?
-      "Cat's Game!"
+      puts "Cat's Game!"
     end
   end
 end
