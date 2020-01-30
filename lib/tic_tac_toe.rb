@@ -49,6 +49,16 @@ class TicTacToe
   end
   
   def turn
+    puts "Enter an integer 1-9, representing your space on the board"
+    user_input = gets.strip
+    user_input.input_to_index
+    if valid_move?
+      move
+      display_board
+    else
+      puts "Enter an integer 1-9, representing your space on the board"
+      user_input = gets.strip
+    end
   end
   
   def turn_count
