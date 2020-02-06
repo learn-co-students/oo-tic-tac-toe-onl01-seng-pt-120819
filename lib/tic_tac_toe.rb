@@ -1,3 +1,4 @@
+require 'pry'
 class TicTacToe
   user_input=" "
   token="X"
@@ -28,20 +29,21 @@ class TicTacToe
     real_ui = user_input.to_i - 1
   end
   
-  def move(input_to_index, token)
-    @board[input_to_index] = token
+  def move(ui, token)
+    @board[ui] = token
   end
   
-  def position_taken?(input_to_index)
-    if @board[input_to_index]==" "
+  def position_taken?(ui)
+    if @board[ui]==" "
       return false
     else
       return true
     end
   end
   
-  def valid_move?(input_to_index)
-    if !position_taken?(input_to_index) && input_to_index>-1 && input_to_index<9
+
+  def valid_move?(ui)
+    if !position_taken?(ui) && ui>-1 && ui<9
       return true
     else
       return false
@@ -51,9 +53,9 @@ class TicTacToe
   def turn
     puts "Enter an integer 1-9, representing your space on the board"
     user_input = gets.strip
-    user_input.input_to_index
-    if valid_move?
-      move
+    index=input_to_index(user_input)
+    if valid_move?(index)
+      move(index, current_player)
       display_board
     else
       puts "Enter an integer 1-9, representing your space on the board"
@@ -62,15 +64,46 @@ class TicTacToe
   end
   
   def turn_count
+    tc=0
+    @board.each { |x|
+    if x!=" "
+      tc=tc+1
+    end
+    }
+    return tc
   end
   
   def current_player
+    if turn_count%2==0
+      return "X"
+    else
+      return "O"
+    end
   end
   
   def won?
+    WIN_COMBINATIONS.each { |x|
+    binding.pry
+    if position_taken?(x[0])&&@board[x[0]]==@board[x[1]]&&@board[x[0]]==@board[x[2]]&&@board[x[1]]==@board[x[2]]
+      return x
+    else
+      return false
+    end
+    }
   end
   
   def full?
+    full=0
+    @board.each { |x|
+    if x=="X" || "O"
+      full=full+1
+    end
+    }
+    if full==9
+      return true
+    else
+      return false
+    end
   end
   
   def draw?
