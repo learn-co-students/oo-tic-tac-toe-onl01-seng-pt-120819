@@ -58,8 +58,7 @@ class TicTacToe
       move(index, current_player)
       display_board
     else
-      puts "Enter an integer 1-9, representing your space on the board"
-      user_input = gets.strip
+      turn
     end
   end
   
