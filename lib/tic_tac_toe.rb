@@ -83,39 +83,45 @@ class TicTacToe
   
   def won?
     WIN_COMBINATIONS.each { |x|
-    binding.pry
+    #binding.pry
     if position_taken?(x[0])&&@board[x[0]]==@board[x[1]]&&@board[x[0]]==@board[x[2]]&&@board[x[1]]==@board[x[2]]
       return x
-    else
-      return false
     end
     }
+    nil
   end
   
   def full?
-    full=0
-    @board.each { |x|
-    if x=="X" || "O"
-      full=full+1
-    end
-    }
-    if full==9
-      return true
-    else
-      return false
-    end
+    @board.all? { |space| space != " " }
   end
   
   def draw?
+    full? && !won?
   end
   
   def over?
+    full? || won?
   end
   
   def winner
+    if won? && current_player == "X" && !draw?
+      return "O"
+    elsif won? && current_player == "O" && !draw?
+      return "X"
+    else
+      return nil
+    end
   end
   
   def play
+    while !over?
+    turn
+    end
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cat's Game!"
+    end
   end
 
 end
